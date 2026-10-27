@@ -1,0 +1,42 @@
+[
+  {
+    "name": "ERP após outro rascunho",
+    "previousDraft": "O computador não liga.",
+    "request": "Quero abrir um chamado pedindo acesso ao ERP",
+    "questionPattern": "ERP|sistema",
+    "answer": "É o Protheus, módulo Financeiro. Preciso consultar e registrar contas a pagar para fazer minha rotina de assistente financeiro. É meu primeiro acesso.",
+    "category": "acessos",
+    "details": ["Protheus", "Financeiro", "contas a pagar"]
+  },
+  {
+    "name": "Computador que não liga",
+    "request": "Quero abrir um chamado porque meu computador não liga.",
+    "questionPattern": "notebook|desktop|luz|luzes|som|equipamento|sinal",
+    "answer": "É um desktop. Ao apertar o botão não acende nenhuma luz nem faz barulho. Começou hoje às 9h e só acontece neste computador. Já conferi o cabo e testei outra tomada. Não consigo iniciar meu trabalho.",
+    "category": "equipamentos",
+    "details": ["desktop", "luz", "tomada", "9"]
+  },
+  {
+    "name": "Acesso com outro nome de sistema",
+    "request": "Preciso abrir um chamado para ter acesso ao portal de relatórios. Não quero fazer testes de diagnóstico.",
+    "questionPattern": "portal|sistema|relat.rio|acesso",
+    "answer": "É o Power BI, workspace Comercial. Preciso de leitura no dashboard de Vendas para acompanhar as metas da equipe diariamente. Ainda não tenho acesso.",
+    "category": "acessos",
+    "details": ["Power BI", "Comercial", "Vendas", "leitura"]
+  },
+  {
+    "name": "Usuário escolhe registrar sem responder",
+    "request": "Quero abrir um chamado pedindo acesso ao ERP.",
+    "questionPattern": "ERP|sistema",
+    "skip": true,
+    "category": "acessos",
+    "details": ["ERP"]
+  },
+  {
+    "name": "Pedido completo não gera questionário extra",
+    "request": "Abra um chamado de primeiro acesso ao SAP S/4HANA, módulo MM. Preciso consultar estoque, sem alterar movimentações, para executar minha rotina na área de Compras.",
+    "ready": true,
+    "category": "acessos",
+    "details": ["SAP", "MM", "estoque", "Compras"]
+  }
+]

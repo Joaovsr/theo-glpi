@@ -1,0 +1,61 @@
+version: "0.1.1"
+tenantId: 00000000-0000-0000-0000-0000000000001
+bot:
+  id: 00000000-0000-0000-0000-00000000000011
+  name: Theo
+currentUser:
+  id: user-id-0
+  name: Usuário de demonstração
+  userPrincipleName: usuario.demo@example.invalid
+  aadObjectId: 00000000-0000-0000-0000-0000000000020
+  givenName: Usuário
+  surname: Demonstração
+  email: usuario.demo@example.invalid
+users:
+  - id: user-id-1
+    name: Usuário fictício 1
+    userPrincipleName: usuario1@example.invalid
+    aadObjectId: 00000000-0000-0000-0000-0000000000021
+    givenName: Usuário
+    surname: Fictício 1
+    email: usuario1@example.invalid
+  - id: user-id-2
+    name: Usuário fictício 2
+    userPrincipleName: usuario2@example.invalid
+    aadObjectId: 00000000-0000-0000-0000-0000000000022
+    givenName: Usuário
+    surname: Fictício 2
+    email: usuario2@example.invalid
+  - id: user-id-3
+    name: Usuário fictício 3
+    userPrincipleName: usuario3@example.invalid
+    aadObjectId: 00000000-0000-0000-0000-0000000000023
+    givenName: Usuário
+    surname: Fictício 3
+    email: usuario3@example.invalid
+  - id: user-id-4
+    name: Usuário fictício 4
+    userPrincipleName: usuario4@example.invalid
+    aadObjectId: 00000000-0000-0000-0000-0000000000024
+    givenName: Usuário
+    surname: Fictício 4
+    email: usuario4@example.invalid
+  - id: user-id-5
+    name: Usuário fictício 5
+    userPrincipleName: usuario5@example.invalid
+    aadObjectId: 00000000-0000-0000-0000-0000000000025
+    givenName: Usuário
+    surname: Fictício 5
+    email: usuario5@example.invalid
+personalChat:
+  id: f7f43dfd-1e75-47e8-885b-0ea811dc01e0
+groupChat:
+  id: c9669ba3-3c32-473c-a33f-6d878c526245
+  name: Grupo fictício
+team:
+  id: team-demo
+  name: Demonstração local
+  aadGroupId: 00000000-0000-0000-0000-0000000000031
+  channels:
+    - id: canal-demo
+      name: Demonstração

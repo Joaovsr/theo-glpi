@@ -1,0 +1,103 @@
+name: theo-glpi
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: glpi
+      MARIADB_USER: glpi
+      MARIADB_PASSWORD: ${GLPI_DB_PASSWORD:?Preencha GLPI_DB_PASSWORD no .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Preencha DB_ROOT_PASSWORD no .env}
+      TZ: America/Sao_Paulo
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: [CMD, healthcheck.sh, --connect, --innodb_initialized]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  glpi:
+    image: glpi/glpi:12.0.0
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8088:80"
+    environment:
+      GLPI_DB_HOST: db
+      GLPI_DB_PORT: "3306"
+      GLPI_DB_NAME: glpi
+      GLPI_DB_USER: glpi
+      GLPI_DB_PASSWORD: ${GLPI_DB_PASSWORD:?Preencha GLPI_DB_PASSWORD no .env}
+      GLPI_SKIP_AUTOUPDATE: "true"
+      TZ: America/Sao_Paulo
+      THEO_ADMIN_PASSWORD: ${THEO_ADMIN_PASSWORD:?Preencha THEO_ADMIN_PASSWORD no .env}
+      THEO_TECH_PASSWORD: ${THEO_TECH_PASSWORD:?Preencha THEO_TECH_PASSWORD no .env}
+      THEO_USER_PASSWORD: ${THEO_USER_PASSWORD:?Preencha THEO_USER_PASSWORD no .env}
+      THEO_API_PASSWORD: ${THEO_API_PASSWORD:?Preencha THEO_API_PASSWORD no .env}
+      THEO_API_TOKEN: ${THEO_API_TOKEN:?Preencha THEO_API_TOKEN no .env}
+      THEO_APP_TOKEN: ${THEO_APP_TOKEN:?Preencha THEO_APP_TOKEN no .env}
+    volumes:
+      - glpi_data:/var/glpi
+    healthcheck:
+      test: [CMD, php, -r, "exit(@file_get_contents('http://127.0.0.1/') === false ? 1 : 0);"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 120s
+
+  theo:
+    build: .
+    image: theo-local-demo
+    restart: unless-stopped
+    depends_on:
+      glpi:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:3978:3978"
+    environment:
+      GLPI_API_URL: http://glpi/apirest.php
+      PLAYGROUND_SERVICE_URL: http://playground:56150/_connector
+      THEO_BIND_HOST: 0.0.0.0
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-6-luna}
+      THEO_CATEGORY_ID: ${THEO_CATEGORY_ID:-1}
+      THEO_APP_TOKEN: ${THEO_APP_TOKEN:?Preencha THEO_APP_TOKEN no .env}
+      THEO_USER_PASSWORD: ${THEO_USER_PASSWORD:?Preencha THEO_USER_PASSWORD no .env}
+    volumes:
+      - theo_data:/app/data
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:3978/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  playground:
+    image: theo-local-demo
+    pull_policy: never
+    tty: true
+    working_dir: /tmp
+    environment:
+      TEAMSAPPTESTER_BROWSER: none
+      M365_AGENTS_PLAYGROUND_CONFIG_PATH: /app/.m365agentsplayground.yml
+    restart: unless-stopped
+    depends_on:
+      theo:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:56150:56150"
+    command: [node, /app/node_modules/@microsoft/m365agentsplayground/cli.js, start, -e, "http://theo:3978/api/messages", -c, msteams, --host, playground, --port, "56150", --service-url, "http://playground:56150/_connector", --disable-telemetry]
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://playground:56150/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  db_data:
+  glpi_data:
+  theo_data:

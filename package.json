@@ -1,0 +1,29 @@
+{
+  "name": "theo-glpi",
+  "description": "Agente conversacional de suporte para GLPI com Microsoft Teams.",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node --env-file=.env src/index.mjs",
+    "playground": "agentsplayground start -e http://127.0.0.1:3978/api/messages -c msteams --host 127.0.0.1 --port 56150 --service-url http://127.0.0.1:56150/_connector --disable-telemetry",
+    "test": "node --test",
+    "test:classification": "node --env-file=.env scripts/check-classification.mjs",
+    "test:intake": "node --env-file=.env scripts/check-intake.mjs",
+    "teams": "teams",
+    "teams:login": "teams login",
+    "teams:status": "teams status"
+  },
+  "devDependencies": {
+    "@microsoft/m365agentsplayground": "0.2.29",
+    "@microsoft/teams.cli": "3.0.4"
+  },
+  "overrides": {
+    "@azure/msal-node": "7.1.1"
+  },
+  "dependencies": {
+    "@microsoft/teams.apps": "2.1.1"
+  }
+}

@@ -1,0 +1,38 @@
+[
+    {
+        "key": "geral",
+        "id": 1,
+        "name": "Geral",
+        "description": "Descrição insuficiente, assunto ambíguo ou fora das demais categorias."
+    },
+    {
+        "key": "acessos",
+        "id": 2,
+        "name": "Acessos e contas",
+        "description": "Login, senha, conta bloqueada, autenticação multifator e permissões. Inclui falha de autenticação em qualquer aplicativo."
+    },
+    {
+        "key": "rede",
+        "id": 3,
+        "name": "Redes e conectividade",
+        "description": "Internet, Wi-Fi, cabo, VPN e indisponibilidade de conexão de rede."
+    },
+    {
+        "key": "equipamentos",
+        "id": 4,
+        "name": "Equipamentos e periféricos",
+        "description": "Computadores, monitores, impressoras, teclado, mouse e defeitos físicos."
+    },
+    {
+        "key": "sistemas",
+        "id": 5,
+        "name": "Sistemas e aplicativos",
+        "description": "Erros, instalação, configuração e travamentos de softwares. Exclui autenticação, conectividade e aplicações de e-mail ou colaboração."
+    },
+    {
+        "key": "comunicacao",
+        "id": 6,
+        "name": "E-mail e colaboração",
+        "description": "Envio e recebimento de e-mail, Outlook, Teams, mensagens, reuniões e chamadas. Problemas de login pertencem a Acessos e contas; falhas gerais da internet pertencem a Redes e conectividade."
+    }
+]
