@@ -1,0 +1,10 @@
+.env*
+!.env.example
+.demo-credentials.json
+__pycache__/
+node_modules/
+.npm-cache/
+data/
+devTools/
+.DS_Store
+*.log
